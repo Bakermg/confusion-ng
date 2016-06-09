@@ -9,6 +9,7 @@
          content must come *after* these tags -->
     <title>Ristorante Con Fusion: Menu</title>
     <!-- Bootstrap -->
+    <!--build:css styles/main.css -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -38,18 +39,16 @@
                     <p>{{dishCtrl.dish.description}}</p>
                 </div>
             </div>
-            <div class="col-xs-4 text-right">
-                <h4>Customer Comments</h4>
+            <div class="col-xs-4 text-right ">
+                <h4 style="padding-right: 24px;">Customer Comments</h4>
             </div>
-            <div class="col-xs-2 text-left">
+            <div class="col-xs-8 text-left">
                 <p></p>
-                <p>Sort by:</p>
-            </div>
-            <div class="col-xs-6">
-                <input type="search" ng-model="q">
+                <label>Sort by:</label>
+                <input type="text" ng-model="query">
             </div>
             <div class="col-xs-9 col-xs-offset-1">
-                <blockquote ng-repeat="comms in dishCtrl.dish.comments">
+                <blockquote ng-repeat="comms in dishCtrl.dish.comments | orderBy: query">
                     <p>{{comms.rating}} Stars</p>
                     <p>{{comms.comment}}</p>
                     <footer>
