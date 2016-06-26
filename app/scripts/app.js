@@ -67,5 +67,5 @@ angular.module('confusionApp', ['ui.router','ngResource'])
             });
 
         $urlRouterProvider.otherwise('/');
-    })
-;
+    });
+

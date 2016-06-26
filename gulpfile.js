@@ -1,3 +1,4 @@
+'use strict ';
 var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
@@ -15,6 +16,11 @@ var gulp = require('gulp'),
     ngannotate = require('gulp-ng-annotate'),
     del = require('del');
 
+// Load in all the Gulp plugins by including the following code in the Gulp file:
+
+
+// Next, we will add the code for the JSHint task, the Clean task and the default task as follows:
+
 gulp.task('jshint', function() {
     return gulp.src('app/scripts/**/*.js')
         .pipe(jshint())
@@ -26,19 +32,31 @@ gulp.task('clean', function() {
     return del(['dist']);
 });
 
+
 // Default task
+
 gulp.task('default', ['clean'], function() {
+
     gulp.start('usemin', 'imagemin', 'copyfonts');
+
 });
 
 gulp.task('usemin', ['jshint'], function() {
-    return gulp.src('./app/**/*.html')
-        .pipe(usemin({
-            css: [minifycss(), rev()],
-            js: [ngannotate(),uglify(), rev()]
-        }))
-        .pipe(gulp.dest('dist/'));
+
+    return gulp.src('./app/**/**.html')
+
+    .pipe(usemin({
+
+        css: [minifycss(),rev()],
+
+        js: [ngannotate(),uglify(),rev()]
+
+    }))
+
+    .pipe(gulp.dest('dist/'));
+
 });
+
 
 // Images
 gulp.task('imagemin', function() {
@@ -55,6 +73,9 @@ gulp.task('copyfonts', ['clean'], function() {
         .pipe(gulp.dest('./dist/fonts'));
 });
 
+
+// Finally, we add the code for the watch and browserSync tasks:
+
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
     // Watch .js files
@@ -64,21 +85,41 @@ gulp.task('watch', ['browser-sync'], function() {
 
 });
 
+
+
+
+//browserSync task
+
 gulp.task('browser-sync', ['default'], function() {
+
     var files = [
+
         'app/**/*.html',
+
         'app/styles/**/*.css',
+
         'app/images/**/*.png',
+
         'app/scripts/**/*.js',
+
         'dist/**/*'
+
     ];
 
     browserSync.init(files, {
+
         server: {
+
             baseDir: "dist",
+
             index: "index.html"
+
         }
+
     });
+
     // Watch any files in dist/, reload on change
+
     gulp.watch(['dist/**']).on('change', browserSync.reload);
+
 });
