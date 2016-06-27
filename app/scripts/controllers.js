@@ -11,7 +11,7 @@ angular.module('confusionApp')
     $scope.message = "Loading...";
 
 
-    menuFactory.getDishes().query(
+    $scope.dish = menuFactory.getDishes().query(
         function(response) {
             $scope.dishes = response;
             $scope.showMenu = true;
@@ -66,8 +66,7 @@ angular.module('confusionApp')
 
 }])
 
-.controller('FeedbackController', ['$scope', function($scope) {
-
+.controller('FeedbackController', ['$scope', 'feedbackFactory', function($scope, feedbackFactory) {
     $scope.sendFeedback = function() {
 
         console.log($scope.feedback);
@@ -76,7 +75,9 @@ angular.module('confusionApp')
             $scope.invalidChannelSelection = true;
             console.log('incorrect');
         } else {
+            feedbackFactory.getFeedback().save($scope.feedback);
             $scope.invalidChannelSelection = false;
+
             $scope.feedback = {
                 mychannel: "",
                 firstName: "",
@@ -84,6 +85,8 @@ angular.module('confusionApp')
                 agree: false,
                 email: ""
             };
+
+
             $scope.feedback.mychannel = "";
             $scope.feedbackForm.$setPristine();
             console.log($scope.feedback);
@@ -168,13 +171,13 @@ angular.module('confusionApp')
 
 
 
-}] )
+}])
 
 .controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
 
     $scope.showLeader = false;
 
-    corporateFactory.getLeaders().query(
+    $scope.leadership = corporateFactory.getLeaders().query(
         function(response) {
             $scope.leadership = response;
             $scope.showLeader = true;
@@ -185,7 +188,3 @@ angular.module('confusionApp')
     );
 
 }])
-
-
-
-

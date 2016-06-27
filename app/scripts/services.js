@@ -8,27 +8,36 @@ angular.module('confusionApp')
 
                 this.getDishes = function(){
 
-                    return $resource.get(baseURL+"dishes/:id",null,{'update':{method:'PUT'}});
+                    return $resource(baseURL+"dishes/:id",null,{'update':{method:'PUT'}});
 
-                };
+                },
 
                 this.getPromotion = function() {
-                    return $resource.get(baseURL+"promotions/:id",null,{'uddate':{method:'PUT'}});
+                    return $resource(baseURL+"promotions/:id",null,{'update':{method:'PUT'}});
 
                 };
 
 
-        }]);
+        }])
 
-        .service('corporateFactory', ['$resource','baseURL',function($resource, baseURL) {
+        .service('corporateFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
 
             this.getLeaders = function(){
 
-                    return $resource.get(baseURL+"leadership/:id",null,{'update':{method:'PUT'}});
+                    return $resource(baseURL+"leadership/:id",null,{'update':{method:'PUT'}});
                 };
 
 
-        }]);
+        }])
+
+        .service('feedbackFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+            this.getFeedback = function() {
+                return $resource(baseURL+"feedback",null,{'save':{method:'POST'}});
+
+            };
+
+        }])
 
 
